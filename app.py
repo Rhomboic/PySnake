@@ -9,15 +9,16 @@ import pprint
 class PySnake(GameApp):
 
     def start(self):
-        self.snake = Snake(x=2*GAME_WIDTH/3, y=GAME_HEIGHT/2)
-        self.apple = Apple(x=GAME_WIDTH/3, y=GAME_HEIGHT/2)
+        self.snake = Snake(x=GAME_WIDTH - 5*SEGMENT_LENGTH, y=GAME_HEIGHT/2)
+        self.apple = Apple(x=5*SEGMENT_LENGTH, y=GAME_HEIGHT/2)
         self.time = 0
         self.last_keys = ()
 
-    def update(self):
+    def update(self, dt):
         self.time += dt
+        self.handleInput()
+
         if self.time > BASE_SPEED:
-            self.handleInput()
             self.handleHeadMovement()
             self.handleBodyMovement()
             self.handleGrowth()
@@ -32,15 +33,18 @@ class PySnake(GameApp):
 
         self.apple.draw(self.view)
 
+    # HELPERS
+
     def handleHeadMovement(self):
-        if self.snake.direction == UP:
-            self.snake.head.y += SEGMENT_LENGTH
-        elif self.snake.direction == RIGHT:
-            self.snake.head.x += SEGMENT_LENGTH
-        elif self.snake.direction == DOWN:
-            self.snake.head.y -= SEGMENT_LENGTH
-        elif self.snake.direction == LEFT:
-            self.snake.head.x -= SEGMENT_LENGTH
+        snake_head = self.snake.segments[0]
+        if snake_head.direction == UP:
+            snake_head.y += SEGMENT_LENGTH
+        elif snake_head.direction == RIGHT:
+            snake_head.x += SEGMENT_LENGTH
+        elif snake_head.direction == DOWN:
+            snake_head.y -= SEGMENT_LENGTH
+        elif snake_head.direction == LEFT:
+            snake_head.x -= SEGMENT_LENGTH
 
     def handleBodyMovement(self):
         for i in range(1, len(self.snake.segments)):

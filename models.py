@@ -20,7 +20,7 @@ class Snake:
           segments: the list of the snake's body segments
     """
 
-    def __init__(self, x, y, fillcolor):
+    def __init__(self, x, y, fillcolor='green'):
         self.head_x = x
         self.head_y = y
         self.segments = [Block(x=self.head_x, y=self.head_y,
@@ -28,5 +28,5 @@ class Snake:
 
 
 class Apple(Block):
-    def __init__(self, x, y, width, height, fillcolor='red'):
+    def __init__(self, x, y, width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='red'):
         super().__init__(x=x, y=y, width=width, height=height, fillcolor=fillcolor)
