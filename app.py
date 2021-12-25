@@ -130,12 +130,11 @@ class PySnake(GameApp):
     def bodyCollision(self):
         return any(segment.contains(self.snake.segments[0].x, self.snake.segments[0].y) for segment in self.snake.segments[1:])
 
-    # def determineState(self):
-    #     # Starting a game/Resuming a game
-    #     if 's' in self.input.keys and 's' not in self.last_keys and (self.state == STATE_START or self.state == STATE_PAUSED:
-    #         self.state=STATE_ACTIVE
+    def determineState(self):
+        # Starting a game/Resuming a game
+        if 's' in self.input.keys and 's' not in self.last_keys and (self.state == STATE_START or self.state == STATE_PAUSED:
+            self.state=STATE_ACTIVE
 
-    #     # Pausing midgame
-    #     if 's' in self.input.keys and 's' not in self.last_keys and self.state == STATE_ACTIVE:
-    #         self.state=STATE_PAUSED
-
+        # Pausing midgame
+        if 's' in self.input.keys and 's' not in self.last_keys and self.state == STATE_ACTIVE:
+            self.state=STATE_PAUSED
