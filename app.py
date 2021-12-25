@@ -92,7 +92,7 @@ class PySnake(GameApp):
                 y_pos = last.y
 
             self.snake.segments.append(Block(x=x_pos, y=y_pos,
-                                             width=SEGMENT_LENGTH, height=SEGMENT_LENGTH))
+                                             width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='green'))
 
     def handleInput(self):
 
@@ -116,5 +116,7 @@ class PySnake(GameApp):
         y = GAME_HEIGHT//SEGMENT_LENGTH
 
         if self.eaten():
-            self.apple.x = random.randint(0, 30*x) + SEGMENT_LENGTH/2
-            self.apple.y = random.randint(0, 30*y) + SEGMENT_LENGTH/2
+            self.apple.left = SEGMENT_LENGTH * \
+                random.randint(0, x)
+            self.apple.top = SEGMENT_LENGTH * \
+                random.randint(0, y)
