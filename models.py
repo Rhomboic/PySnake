@@ -8,6 +8,8 @@ class Block(GRectangle):
     def __init__(self, x, y, width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='blue'):
         super().__init__(x=x, y=y, width=width, height=height, fillcolor=fillcolor)
         self.direction = LEFT
+        self.last_x = x
+        self.last_y = y
 
 
 class Snake:

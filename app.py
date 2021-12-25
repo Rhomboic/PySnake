@@ -59,6 +59,7 @@ class PySnake(GameApp):
 
     def handleHeadMovement(self):
         snake_head = self.snake.segments[0]
+        self.updateLastPos(snake_head)
         if snake_head.direction == UP:
             snake_head.y += SEGMENT_LENGTH
         elif snake_head.direction == RIGHT:
@@ -70,8 +71,8 @@ class PySnake(GameApp):
 
     def handleBodyMovement(self):
         for i in range(1, len(self.snake.segments)):
-            self.snake.segments[i].x = self.snake.segments[i-1].x
-            self.snake.segments[i].y = self.snake.segments[i-1].y
+            self.snake.segments[i].x = self.snake.segments[i-1].last_x
+            self.snake.segments[i].y = self.snake.segments[i-1].last_y
 
     def handleGrowth(self):
         if self.eaten():
@@ -116,7 +117,9 @@ class PySnake(GameApp):
         y = GAME_HEIGHT//SEGMENT_LENGTH
 
         if self.eaten():
-            self.apple.left = SEGMENT_LENGTH * \
-                random.randint(0, x)
-            self.apple.top = SEGMENT_LENGTH * \
-                random.randint(0, y)
+            self.apple.left = SEGMENT_LENGTH * random.randint(0, x)
+            self.apple.top = SEGMENT_LENGTH * random.randint(0, y)
+
+    def updateLastPos(self, segment):
+        segment.last_x = segment.x
+        segment.last_y = segment.y
