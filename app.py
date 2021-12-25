@@ -26,7 +26,7 @@ class PySnake(GameApp):
                                font_name='Arcade.ttf',
                                x=GAME_WIDTH/2,
                                y=5*GAME_HEIGHT/8,
-                               linecolor="green")
+                               linecolor="yellow")
         self.aidtext = GLabel(text="Press S to Start",
                               font_size=50,
                               font_name='Arcade.ttf',
@@ -55,13 +55,13 @@ class PySnake(GameApp):
                                    font_name='Arcade.ttf',
                                    x=GAME_WIDTH/2,
                                    y=5*GAME_HEIGHT//8,
-                                   linecolor="green")
+                                   linecolor="yellow")
             self.aidtext = GLabel(text="Press S to Resume",
                                   font_size=50,
                                   font_name='Arcade.ttf',
                                   x=GAME_WIDTH/2,
                                   y=3*GAME_HEIGHT/2,
-                                  linecolor="green")
+                                  linecolor="yellow")
 
         if self.state == STATE_ACTIVE and self.bodyCollision():
             self.state = STATE_END
@@ -70,13 +70,13 @@ class PySnake(GameApp):
                                    font_name='Arcade.ttf',
                                    x=GAME_WIDTH/2,
                                    y=5*GAME_HEIGHT/8,
-                                   linecolor="green")
+                                   linecolor="yellow")
             self.aidtext = GLabel(text=f'You Lose\nScore:\n{len(self.snake.segments)}',
                                   font_size=50,
                                   font_name='Arcade.ttf',
                                   x=GAME_WIDTH/2,
                                   y=3*GAME_HEIGHT/8,
-                                  linecolor="green")
+                                  linecolor="yellow")
 
         self.last_keys = self.input.keys
 
@@ -94,23 +94,9 @@ class PySnake(GameApp):
             if self.apple is not None:
                 self.apple.draw(self.view)
 
-        # if self.state == STATE_ACTIVE:
-        #     for line in self.lines:
-        #         line.draw(self.view)
-
-        #     for segment in self.snake.segments:
-        #         segment.draw(self.view)
-
-        #     if self.apple is not None:
-        #         self.apple.draw(self.view)
-
         if self.state != STATE_ACTIVE:
             self.maintext.draw(self.view)
             self.aidtext.draw(self.view)
-
-        # if self.state == STATE_START or self.state == STATE_END:
-        #     self.maintext.draw(self.view)
-        #     self.aidtext.draw(self.view)
 
     # HELPERS
     def grid(self):
@@ -151,7 +137,7 @@ class PySnake(GameApp):
             y_pos = last.last_y
 
             self.snake.segments.append(Block(x=x_pos, y=y_pos,
-                                             width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='green', linecolor='black'))
+                                             width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='green'))
 
     def handleInput(self):
 
