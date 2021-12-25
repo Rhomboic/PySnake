@@ -29,7 +29,6 @@ class PySnake(GameApp):
                               x=GAME_WIDTH/2,
                               y=GAME_HEIGHT/3,
                               linecolor="green")
-        self.grid()
 
     def update(self, dt):
 
