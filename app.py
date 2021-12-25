@@ -17,33 +17,87 @@ class PySnake(GameApp):
         self.last_keys = ()
         self.lines = []
         self.state = STATE_START
+        self.maintext = GLabel(text="PySnake",
+                               font_size=110,
+                               font_name='Arcade.ttf',
+                               x=GAME_WIDTH/2,
+                               y=GAME_HEIGHT/2,
+                               linecolor="green")
+        self.aidtext = GLabel(text="Press S to Start",
+                              font_size=50,
+                              font_name='Arcade.ttf',
+                              x=GAME_WIDTH/2,
+                              y=GAME_HEIGHT/3,
+                              linecolor="green")
         self.grid()
 
     def update(self, dt):
+
         self.time += dt
-        self.handleInput()
-        self.wallCollision()
+        self.determineState()
+        if self.state == STATE_ACTIVE:
+            self.handleInput()
+            self.wallCollision()
 
-        if self.time > BASE_SPEED:
-            self.handleHeadMovement()
-            self.handleBodyMovement()
-            self.handleGrowth()
-            self.time = 0
+            if self.time > BASE_SPEED:
+                self.handleHeadMovement()
+                self.handleBodyMovement()
+                self.handleGrowth()
+                self.time = 0
 
-        self.appleSpawner()
+            self.appleSpawner()
+        if self.state == STATE_PAUSED:
+            self.maintext = GLabel(text="Paused",
+                                   font_size=70,
+                                   font_name='Arcade.ttf',
+                                   x=GAME_WIDTH/2,
+                                   y=GAME_HEIGHT//2,
+                                   linecolor="green")
+            self.aidtext = GLabel(text="Press S to Resume",
+                                  font_size=50,
+                                  font_name='Arcade.ttf',
+                                  x=GAME_WIDTH/2,
+                                  y=GAME_HEIGHT/3,
+                                  linecolor="green")
+
+        if self.state == STATE_ACTIVE and self.bodyCollision():
+            self.state = STATE_END
+            self.maintext = GLabel(text="Game Over",
+                                   font_size=70,
+                                   font_name='Arcade.ttf',
+                                   x=GAME_WIDTH/2,
+                                   y=GAME_HEIGHT//2,
+                                   linecolor="green")
+            self.aidtext = GLabel(text="You Lose",
+                                  font_size=50,
+                                  font_name='Arcade.ttf',
+                                  x=GAME_WIDTH/2,
+                                  y=GAME_HEIGHT/3,
+                                  linecolor="green")
+
+        self.last_keys = self.input.keys
 
     def draw(self):
         GRectangle(x=GAME_WIDTH/2, y=GAME_HEIGHT/2, width=GAME_WIDTH,
                    height=GAME_HEIGHT, fillcolor='black').draw(self.view)
 
-        for line in self.lines:
-            line.draw(self.view)
+        if self.state == STATE_ACTIVE:
+            for line in self.lines:
+                line.draw(self.view)
 
-        for segment in self.snake.segments:
-            segment.draw(self.view)
+            for segment in self.snake.segments:
+                segment.draw(self.view)
 
-        if self.apple is not None:
-            self.apple.draw(self.view)
+            if self.apple is not None:
+                self.apple.draw(self.view)
+
+        if self.state == STATE_PAUSED:
+            self.maintext.draw(self.view)
+            self.aidtext.draw(self.view)
+
+        if self.state == STATE_START or self.state == STATE_END:
+            self.maintext.draw(self.view)
+            self.aidtext.draw(self.view)
 
     # HELPERS
     def grid(self):
@@ -88,16 +142,16 @@ class PySnake(GameApp):
 
     def handleInput(self):
 
-        if 'up' in self.input.keys and 'up' not in self.last_keys:
+        if 'up' in self.input.keys and self.last_keys == ():
             self.snake.segments[0].direction = UP
 
-        if 'down' in self.input.keys and 'down' not in self.last_keys:
+        if 'down' in self.input.keys and self.last_keys == ():
             self.snake.segments[0].direction = DOWN
 
-        if 'left' in self.input.keys and 'left' not in self.last_keys:
+        if 'left' in self.input.keys and self.last_keys == ():
             self.snake.segments[0].direction = LEFT
 
-        if 'right' in self.input.keys and 'right' not in self.last_keys:
+        if 'right' in self.input.keys and self.last_keys == ():
             self.snake.segments[0].direction = RIGHT
 
     def eaten(self):
@@ -107,10 +161,19 @@ class PySnake(GameApp):
         x = GAME_WIDTH//SEGMENT_LENGTH
         y = GAME_HEIGHT//SEGMENT_LENGTH
 
+        real_left = SEGMENT_LENGTH * (random.randint(1, x-1))
+        real_top = SEGMENT_LENGTH * (random.randint(1, y-1))
+
         if self.eaten():
-            self.apple.left = SEGMENT_LENGTH * (random.randint(1, x-1))
-            self.apple.top = SEGMENT_LENGTH * (random.randint(1, y-1))
-        print(self.apple.left, self.apple.top, len(self.snake.segments))
+            while any(segment.left == real_left for segment in self.snake.segments) and any(segment.top == real_top for segment in self.snake.segments):
+                real_left = SEGMENT_LENGTH * (random.randint(1, x-1))
+                real_top = SEGMENT_LENGTH * (random.randint(1, y-1))
+
+            self.apple.left = real_left
+            self.apple.top = real_top
+
+        print(self.apple.left, self.apple.top, len(
+            self.snake.segments), self.last_keys)
 
     def updateLastPos(self, segment):
         segment.last_x = segment.x
@@ -125,16 +188,19 @@ class PySnake(GameApp):
         if head.bottom >= GAME_HEIGHT:
             head.bottom = 0
         if head.top <= 0:
-            head.left = GAME_HEIGHT
+            head.top = GAME_HEIGHT
 
     def bodyCollision(self):
-        return any(segment.contains(self.snake.segments[0].x, self.snake.segments[0].y) for segment in self.snake.segments[1:])
+        return any(segment.contains((self.snake.segments[0].x, self.snake.segments[0].y)) for segment in self.snake.segments[1:])
 
     def determineState(self):
         # Starting a game/Resuming a game
-        if 's' in self.input.keys and 's' not in self.last_keys and (self.state == STATE_START or self.state == STATE_PAUSED:
-            self.state=STATE_ACTIVE
+        if 's' in self.input.keys and self.last_keys == () and (self.state == STATE_START):
+            self.state = STATE_ACTIVE
 
         # Pausing midgame
-        if 's' in self.input.keys and 's' not in self.last_keys and self.state == STATE_ACTIVE:
-            self.state=STATE_PAUSED
+        elif 's' in self.input.keys and self.last_keys == () and self.state == STATE_ACTIVE:
+            self.state = STATE_PAUSED
+
+        elif 's' in self.input.keys and self.last_keys == () and self.state == STATE_PAUSED:
+            self.state = STATE_ACTIVE
