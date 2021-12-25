@@ -1,3 +1,8 @@
+"""
+Object Classes for PySnake
+
+This module global objects class definitions for the game PySnake.
+"""
 
 from consts import *
 from game2d import *

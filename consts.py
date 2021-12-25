@@ -1,7 +1,7 @@
 """
-Constants for Tetris
+Constants for PySnake
 
-This module global constants for the game Tetris.
+This module global constants for the game PySnake.
 """
 ### WINDOW CONSTANTS (all coordinates are in pixels) ###
 
@@ -14,10 +14,11 @@ SEGMENT_LENGTH = 30
 
 BASE_SPEED = 0.3
 
-STATE_PAUSED = 0
+STATE_START = 0
+STATE_PAUSED = 2
 STATE_ACTIVE = 1
-STATE_END = 2
-STATE_FINISH = 3
+STATE_END = 3
+# STATE_FINISH = 3
 
 LEFT = 0
 UP = 1
