@@ -71,6 +71,7 @@ class PySnake(GameApp):
 
     def handleBodyMovement(self):
         for i in range(1, len(self.snake.segments)):
+            self.updateLastPos(self.snake.segments[i])
             self.snake.segments[i].x = self.snake.segments[i-1].last_x
             self.snake.segments[i].y = self.snake.segments[i-1].last_y
 
