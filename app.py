@@ -175,8 +175,8 @@ class PySnake(GameApp):
             self.apple.left = real_left
             self.apple.top = real_top
 
-        print(self.apple.left, self.apple.top, len(
-            self.snake.segments), self.last_keys)
+        # print(self.apple.left, self.apple.top, len(
+        #     self.snake.segments), self.last_keys)
 
     def updateLastPos(self, segment):
         segment.last_x = segment.x
