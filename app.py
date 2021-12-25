@@ -52,7 +52,7 @@ class PySnake(GameApp):
             self.snake.segments[i].y = self.snake.segments[i-1].y
 
     def handleGrowth(self):
-        if self.snake.head_x == self.apple.x and self.snake.head_y == self.apple.y:
+        if self.eaten():
             last = self.snake.segments[-1]
             x_pos = None
             y_pos = None
@@ -85,3 +85,12 @@ class PySnake(GameApp):
 
         if 'right' in self.input.keys and 'right' not in self.last_keys:
             self.snake.segments[0].direction = RIGHT
+
+    def eaten(self):
+        return self.snake.head_x == self.apple.x and self.snake.head_y == self.apple.y
+
+    # def appleSpawner(self):
+    #     x = GAME_WIDTH//SEGMENT_LENGTH
+    #     y = GAME_HEIGHT//SEGMENT_LENGTH
+
+    #     if 
