@@ -84,7 +84,7 @@ class PySnake(GameApp):
         GRectangle(x=GAME_WIDTH/2, y=GAME_HEIGHT/2, width=GAME_WIDTH,
                    height=GAME_HEIGHT, fillcolor='black').draw(self.view)
 
-        if self.state == STATE_ACTIVE:
+        if self.state != STATE_START:
             for line in self.lines:
                 line.draw(self.view)
 
@@ -94,13 +94,23 @@ class PySnake(GameApp):
             if self.apple is not None:
                 self.apple.draw(self.view)
 
-        if self.state == STATE_PAUSED:
+        # if self.state == STATE_ACTIVE:
+        #     for line in self.lines:
+        #         line.draw(self.view)
+
+        #     for segment in self.snake.segments:
+        #         segment.draw(self.view)
+
+        #     if self.apple is not None:
+        #         self.apple.draw(self.view)
+
+        if self.state != STATE_ACTIVE:
             self.maintext.draw(self.view)
             self.aidtext.draw(self.view)
 
-        if self.state == STATE_START or self.state == STATE_END:
-            self.maintext.draw(self.view)
-            self.aidtext.draw(self.view)
+        # if self.state == STATE_START or self.state == STATE_END:
+        #     self.maintext.draw(self.view)
+        #     self.aidtext.draw(self.view)
 
     # HELPERS
     def grid(self):
