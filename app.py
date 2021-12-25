@@ -9,10 +9,14 @@ import pprint
 class PySnake(GameApp):
 
     def start(self):
-        self.snake = Snake(x=GAME_WIDTH - 5*SEGMENT_LENGTH, y=GAME_HEIGHT/2)
-        self.apple = Apple(x=5*SEGMENT_LENGTH, y=GAME_HEIGHT/2)
+        self.snake = Snake(x=GAME_WIDTH - 5*SEGMENT_LENGTH -
+                           SEGMENT_LENGTH/2, y=GAME_HEIGHT/2)
+        self.apple = Apple(x=5*SEGMENT_LENGTH +
+                           SEGMENT_LENGTH/2, y=GAME_HEIGHT/2)
         self.time = 0
         self.last_keys = ()
+        self.lines = []
+        self.grid()
 
     def update(self, dt):
         self.time += dt
@@ -24,16 +28,34 @@ class PySnake(GameApp):
             self.handleGrowth()
             self.time = 0
 
+        self.appleSpawner()
+
     def draw(self):
         GRectangle(x=GAME_WIDTH/2, y=GAME_HEIGHT/2, width=GAME_WIDTH,
                    height=GAME_HEIGHT, fillcolor='black').draw(self.view)
 
+        for line in self.lines:
+            line.draw(self.view)
+
         for segment in self.snake.segments:
             segment.draw(self.view)
 
-        self.apple.draw(self.view)
+        if self.apple is not None:
+            self.apple.draw(self.view)
 
     # HELPERS
+    def grid(self):
+        vert_lines = GAME_WIDTH//30
+        horz_lines = GAME_HEIGHT//30
+
+        for i in range(vert_lines):
+            self.lines.append(GPath(points=(30*(i), 0, 30*(i), GAME_HEIGHT),
+                                    linewidth=1,
+                                    linecolor="gray"))
+        for i in range(int(horz_lines)):
+            self.lines.append(GPath(points=(0, 30*(i+1), GAME_WIDTH, 30*(i+1)),
+                                    linewidth=1,
+                                    linecolor="gray"))
 
     def handleHeadMovement(self):
         snake_head = self.snake.segments[0]
@@ -87,10 +109,12 @@ class PySnake(GameApp):
             self.snake.segments[0].direction = RIGHT
 
     def eaten(self):
-        return self.snake.head_x == self.apple.x and self.snake.head_y == self.apple.y
+        return self.snake.segments[0].x == self.apple.x and self.snake.segments[0].y == self.apple.y
 
-    # def appleSpawner(self):
-    #     x = GAME_WIDTH//SEGMENT_LENGTH
-    #     y = GAME_HEIGHT//SEGMENT_LENGTH
+    def appleSpawner(self):
+        x = GAME_WIDTH//SEGMENT_LENGTH
+        y = GAME_HEIGHT//SEGMENT_LENGTH
 
-    #     if 
+        if self.eaten():
+            self.apple.x = random.randint(0, 30*x) + SEGMENT_LENGTH/2
+            self.apple.y = random.randint(0, 30*y) + SEGMENT_LENGTH/2

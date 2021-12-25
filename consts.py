@@ -6,13 +6,13 @@ This module global constants for the game Tetris.
 ### WINDOW CONSTANTS (all coordinates are in pixels) ###
 
 #: the width of the game display
-GAME_WIDTH = 600
+GAME_WIDTH = 690
 #: the height of the game display
-GAME_HEIGHT = 600
+GAME_HEIGHT = 690
 
 SEGMENT_LENGTH = 30
 
-BASE_SPEED = 0.8
+BASE_SPEED = 0.3
 
 STATE_PAUSED = 0
 STATE_ACTIVE = 1
