@@ -194,13 +194,13 @@ class PySnake(GameApp):
         return any(segment.contains((self.snake.segments[0].x, self.snake.segments[0].y)) for segment in self.snake.segments[1:])
 
     def determineState(self):
-        # Starting a game/Resuming a game
+        # Starting a game
         if 's' in self.input.keys and self.last_keys == () and (self.state == STATE_START):
             self.state = STATE_ACTIVE
 
         # Pausing midgame
         elif 's' in self.input.keys and self.last_keys == () and self.state == STATE_ACTIVE:
             self.state = STATE_PAUSED
-
+        # Resuming a game
         elif 's' in self.input.keys and self.last_keys == () and self.state == STATE_PAUSED:
             self.state = STATE_ACTIVE
