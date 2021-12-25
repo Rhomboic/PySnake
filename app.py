@@ -17,7 +17,7 @@ class PySnake(GameApp):
         self.time += dt
         if self.time > BASE_SPEED:
             self.handleHeadMovement()
-            # self.handleBodyMovement()
+            self.handleBodyMovement()
             # self.handleGrowth()
             self.time = 0
         else:
@@ -42,10 +42,10 @@ class PySnake(GameApp):
         elif self.snake.direction == LEFT:
             self.snake.head.x -= SEGMENT_LENGTH
 
-    # def handleBodyMovement(self):
-    #     for i in range(1, len(self.snake.segments)):
-    #         self.snake.segments[i].x = self.snake.segments[i-1].x
-    #         self.snake.segments[i].y = self.snake.segments[i-1].y
+    def handleBodyMovement(self):
+        for i in range(1, len(self.snake.segments)):
+            self.snake.segments[i].x = self.snake.segments[i-1].x
+            self.snake.segments[i].y = self.snake.segments[i-1].y
 
     # def handleGrowth(self):
     #     if self.snake.head_x == self.apple.x and self.snake.head_y == self.apple.y:
