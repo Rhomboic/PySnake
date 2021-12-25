@@ -21,6 +21,7 @@ class PySnake(GameApp):
     def update(self, dt):
         self.time += dt
         self.handleInput()
+        self.wallCollision()
 
         if self.time > BASE_SPEED:
             self.handleHeadMovement()
@@ -106,10 +107,21 @@ class PySnake(GameApp):
         y = GAME_HEIGHT//SEGMENT_LENGTH
 
         if self.eaten():
-            self.apple.left = SEGMENT_LENGTH * (random.randint(0, x) + 1)
-            self.apple.top = SEGMENT_LENGTH * (random.randint(0, y) + 1)
-        print(self.apple.left, self.apple.top)
+            self.apple.left = SEGMENT_LENGTH * (random.randint(1, x-1))
+            self.apple.top = SEGMENT_LENGTH * (random.randint(1, y-1))
+        print(self.apple.left, self.apple.top, len(self.snake.segments))
 
     def updateLastPos(self, segment):
         segment.last_x = segment.x
         segment.last_y = segment.y
+
+    def wallCollision(self):
+        head = self.snake.segments[0]
+        if head.left >= GAME_WIDTH:
+            head.left = 0
+        if head.right <= 0:
+            head.right = GAME_WIDTH
+        if head.bottom >= GAME_HEIGHT:
+            head.bottom = 0
+        if head.top <= 0:
+            head.left = GAME_HEIGHT
