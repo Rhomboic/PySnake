@@ -9,10 +9,10 @@ import pprint
 class PySnake(GameApp):
 
     def start(self):
-        self.snake = Snake(x=GAME_WIDTH - 5*SEGMENT_LENGTH -
-                           SEGMENT_LENGTH/2, y=GAME_HEIGHT/2)
-        self.apple = Apple(x=5*SEGMENT_LENGTH +
-                           SEGMENT_LENGTH/2, y=GAME_HEIGHT/2)
+        self.snake = Snake(x=SEGMENT_LENGTH * (random.randint(1, GAME_WIDTH//SEGMENT_LENGTH-1)) + SEGMENT_LENGTH//2,
+                           y=SEGMENT_LENGTH * (random.randint(1, GAME_HEIGHT//SEGMENT_LENGTH-1)) + SEGMENT_LENGTH//2)
+        self.apple = Apple(x=SEGMENT_LENGTH * (random.randint(1, GAME_WIDTH//SEGMENT_LENGTH-1)) + SEGMENT_LENGTH//2,
+                           y=SEGMENT_LENGTH * (random.randint(1, GAME_HEIGHT//SEGMENT_LENGTH-1)) + SEGMENT_LENGTH//2)
         self.time = 0
         self.last_keys = ()
         self.lines = []
@@ -29,6 +29,7 @@ class PySnake(GameApp):
                               x=GAME_WIDTH/2,
                               y=GAME_HEIGHT/3,
                               linecolor="green")
+        self.grid()
 
     def update(self, dt):
 
