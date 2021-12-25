@@ -12,16 +12,16 @@ class PySnake(GameApp):
         self.snake = Snake(x=2*GAME_WIDTH/3, y=GAME_HEIGHT/2)
         self.apple = Apple(x=GAME_WIDTH/3, y=GAME_HEIGHT/2)
         self.time = 0
+        self.last_keys = ()
 
     def update(self):
         self.time += dt
         if self.time > BASE_SPEED:
+            self.handleInput()
             self.handleHeadMovement()
             self.handleBodyMovement()
             self.handleGrowth()
             self.time = 0
-        else:
-            pass
 
     def draw(self):
         GRectangle(x=GAME_WIDTH/2, y=GAME_HEIGHT/2, width=GAME_WIDTH,
@@ -66,4 +66,18 @@ class PySnake(GameApp):
                 y_pos = last.y
 
             self.snake.segments.append(Block(x=x_pos, y=y_pos,
-                               width=SEGMENT_LENGTH, height=SEGMENT_LENGTH)
+                                             width=SEGMENT_LENGTH, height=SEGMENT_LENGTH))
+
+    def handleInput(self):
+
+        if 'up' in self.input.keys and 'up' not in self.last_keys:
+            self.snake.segments[0].direction = UP
+
+        if 'down' in self.input.keys and 'down' not in self.last_keys:
+            self.snake.segments[0].direction = DOWN
+
+        if 'left' in self.input.keys and 'left' not in self.last_keys:
+            self.snake.segments[0].direction = LEFT
+
+        if 'right' in self.input.keys and 'right' not in self.last_keys:
+            self.snake.segments[0].direction = RIGHT
