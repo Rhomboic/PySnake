@@ -78,20 +78,8 @@ class PySnake(GameApp):
     def handleGrowth(self):
         if self.eaten():
             last = self.snake.segments[-1]
-            x_pos = None
-            y_pos = None
-            if last.direction == UP:
-                x_pos = last.x
-                y_pos = last.y-SEGMENT_LENGTH
-            elif last.direction == DOWN:
-                x_pos = last.x
-                y_pos = last.y+SEGMENT_LENGTH
-            elif last.direction == LEFT:
-                x_pos = last.x + SEGMENT_LENGTH
-                y_pos = last.y
-            elif last.direction == RIGHT:
-                x_pos = last.x - SEGMENT_LENGTH
-                y_pos = last.y
+            x_pos = last.last_x
+            y_pos = last.last_y
 
             self.snake.segments.append(Block(x=x_pos, y=y_pos,
                                              width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='green'))
@@ -118,8 +106,9 @@ class PySnake(GameApp):
         y = GAME_HEIGHT//SEGMENT_LENGTH
 
         if self.eaten():
-            self.apple.left = SEGMENT_LENGTH * random.randint(0, x)
-            self.apple.top = SEGMENT_LENGTH * random.randint(0, y)
+            self.apple.left = SEGMENT_LENGTH * (random.randint(0, x) + 1)
+            self.apple.top = SEGMENT_LENGTH * (random.randint(0, y) + 1)
+        print(self.apple.left, self.apple.top)
 
     def updateLastPos(self, segment):
         segment.last_x = segment.x
