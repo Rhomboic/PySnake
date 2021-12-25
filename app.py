@@ -21,7 +21,7 @@ class PySnake(GameApp):
                                font_size=110,
                                font_name='Arcade.ttf',
                                x=GAME_WIDTH/2,
-                               y=GAME_HEIGHT/2,
+                               y=5*GAME_HEIGHT/8,
                                linecolor="green")
         self.aidtext = GLabel(text="Press S to Start",
                               font_size=50,
@@ -51,13 +51,13 @@ class PySnake(GameApp):
                                    font_size=70,
                                    font_name='Arcade.ttf',
                                    x=GAME_WIDTH/2,
-                                   y=GAME_HEIGHT//2,
+                                   y=5*GAME_HEIGHT//8,
                                    linecolor="green")
             self.aidtext = GLabel(text="Press S to Resume",
                                   font_size=50,
                                   font_name='Arcade.ttf',
                                   x=GAME_WIDTH/2,
-                                  y=GAME_HEIGHT/3,
+                                  y=3*GAME_HEIGHT/2,
                                   linecolor="green")
 
         if self.state == STATE_ACTIVE and self.bodyCollision():
@@ -66,13 +66,13 @@ class PySnake(GameApp):
                                    font_size=70,
                                    font_name='Arcade.ttf',
                                    x=GAME_WIDTH/2,
-                                   y=GAME_HEIGHT//2,
+                                   y=5*GAME_HEIGHT/8,
                                    linecolor="green")
             self.aidtext = GLabel(text="You Lose",
                                   font_size=50,
                                   font_name='Arcade.ttf',
                                   x=GAME_WIDTH/2,
-                                  y=GAME_HEIGHT/3,
+                                  y=3*GAME_HEIGHT/8,
                                   linecolor="green")
 
         self.last_keys = self.input.keys
