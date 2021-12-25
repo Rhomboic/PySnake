@@ -67,7 +67,7 @@ class PySnake(GameApp):
                                    x=GAME_WIDTH/2,
                                    y=5*GAME_HEIGHT/8,
                                    linecolor="green")
-            self.aidtext = GLabel(text="You Lose",
+            self.aidtext = GLabel(text=f'You Lose\nScore:\n{len(self.snake.segments)}',
                                   font_size=50,
                                   font_name='Arcade.ttf',
                                   x=GAME_WIDTH/2,
