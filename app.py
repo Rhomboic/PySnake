@@ -13,6 +13,10 @@ class PySnake(GameApp):
                            y=SEGMENT_LENGTH * (random.randint(1, GAME_HEIGHT//SEGMENT_LENGTH-1)) + SEGMENT_LENGTH//2)
         self.apple = Apple(x=SEGMENT_LENGTH * (random.randint(1, GAME_WIDTH//SEGMENT_LENGTH-1)) + SEGMENT_LENGTH//2,
                            y=SEGMENT_LENGTH * (random.randint(1, GAME_HEIGHT//SEGMENT_LENGTH-1)) + SEGMENT_LENGTH//2)
+        # Keep searching for another spot if apple happens to spawn on snake at start
+        while self.apple.x == self.snake.x and self.apple.y == self.snake.y:
+            self.apple = Apple(x=SEGMENT_LENGTH * (random.randint(1, GAME_WIDTH//SEGMENT_LENGTH-1)) + SEGMENT_LENGTH//2,
+                               y=SEGMENT_LENGTH * (random.randint(1, GAME_HEIGHT//SEGMENT_LENGTH-1)) + SEGMENT_LENGTH//2)
         self.time = 0
         self.last_keys = ()
         self.lines = []
