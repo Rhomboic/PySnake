@@ -11,8 +11,9 @@ import random
 
 
 class Block(GRectangle):
-    def __init__(self, x, y, width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='blue'):
-        super().__init__(x=x, y=y, width=width, height=height, fillcolor=fillcolor)
+    def __init__(self, x, y, width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='blue', linecolor="black", linewidth=SEGMENT_BORDER):
+        super().__init__(x=x, y=y, width=width, height=height,
+                         fillcolor=fillcolor, linecolor=linecolor, linewidth=linewidth)
         self.direction = random.choice([LEFT, RIGHT, UP, DOWN])
         self.last_x = x
         self.last_y = y

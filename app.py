@@ -141,7 +141,7 @@ class PySnake(GameApp):
             y_pos = last.last_y
 
             self.snake.segments.append(Block(x=x_pos, y=y_pos,
-                                             width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='green'))
+                                             width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='green', linecolor='black'))
 
     def handleInput(self):
 
