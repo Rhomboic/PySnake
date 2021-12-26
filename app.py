@@ -22,17 +22,21 @@ class PySnake(GameApp):
         self.lines = []
         self.state = STATE_START
         self.maintext = GLabel(text="PySnake",
-                               font_size=110,
+                               font_size=150,
                                font_name='Arcade.ttf',
                                x=GAME_WIDTH/2,
-                               y=5*GAME_HEIGHT/8,
+                               y=2.8*GAME_HEIGHT/8,
                                linecolor="yellow")
         self.aidtext = GLabel(text="Press S to Start",
                               font_size=50,
                               font_name='Arcade.ttf',
                               x=GAME_WIDTH/2,
-                              y=GAME_HEIGHT/3,
+                              y=GAME_HEIGHT/4,
                               linecolor="green")
+
+        self.SnakeImage = GImage(
+            x=GAME_WIDTH/2, y=3*GAME_HEIGHT/5, width=300, height=300, source='snake.png')
+
         self.eatsound = Sound(SOUNDS[1])
         self.theme = Sound(SOUNDS[2])
         self.deaththeme = Sound(SOUNDS[0])
@@ -104,6 +108,9 @@ class PySnake(GameApp):
     def draw(self):
         GRectangle(x=GAME_WIDTH/2, y=GAME_HEIGHT/2, width=GAME_WIDTH,
                    height=GAME_HEIGHT, fillcolor='black').draw(self.view)
+
+        if self.state == STATE_START:
+            self.SnakeImage.draw(self.view)
 
         if self.state != STATE_START:
             for line in self.lines:
