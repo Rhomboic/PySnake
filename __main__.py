@@ -1,5 +1,5 @@
 """
-The primary application script for Alien Invaders
+The primary application script for PySnake
 
 This is the module with the application code.  Make sure that this module is
 in a folder with the following files:
@@ -17,8 +17,8 @@ In addition, you should have the following subfolders
 
 Moving any of these folders or files will prevent the game from working properly
 
-Author: Walker M. White (wmw2)
-Date:   November 20, 2019
+Author: Adam Issah
+Date: December 24th, 2021
 """
 from consts import *
 from app import *
