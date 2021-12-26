@@ -33,12 +33,28 @@ class PySnake(GameApp):
                               x=GAME_WIDTH/2,
                               y=GAME_HEIGHT/3,
                               linecolor="green")
+        self.eatsound = Sound(SOUNDS[1])
+        self.theme = Sound(SOUNDS[2])
+        self.deaththeme = Sound(SOUNDS[0])
+        self.pausesound = Sound(SOUNDS[3])
+        self.starttheme = Sound(SOUNDS[4])
+        self.starttheme.play()
 
     def update(self, dt):
 
         self.time += dt
+
+        if self.state != STATE_START:
+            self.starttheme.volume = 0
+
         self.determineState()
+        if self.state == STATE_BEGIN:
+            self.theme.play(loop=True)
+            self.theme.volume = 0.3
+            self.state = STATE_ACTIVE
+
         if self.state == STATE_ACTIVE:
+            self.theme.volume = 0.3
             self.handleInput()
             self.wallCollision()
 
@@ -50,6 +66,7 @@ class PySnake(GameApp):
 
             self.appleSpawner()
         if self.state == STATE_PAUSED:
+            self.theme.volume = 0.0
             self.maintext = GLabel(text="Paused",
                                    font_size=70,
                                    font_name='Arcade.ttf',
@@ -77,6 +94,10 @@ class PySnake(GameApp):
                                   x=GAME_WIDTH/2,
                                   y=3*GAME_HEIGHT/8,
                                   linecolor="yellow")
+        if self.state == STATE_END:
+            self.theme.volume = 0.0
+            self.deaththeme.play()
+            self.state = STATE_FINISH
 
         self.last_keys = self.input.keys
 
@@ -132,6 +153,9 @@ class PySnake(GameApp):
 
     def handleGrowth(self):
         if self.eaten():
+            # if self.time < 0.2:
+            self.eatsound.play()
+
             last = self.snake.segments[-1]
             x_pos = last.last_x
             y_pos = last.last_y
@@ -195,11 +219,13 @@ class PySnake(GameApp):
     def determineState(self):
         # Starting a game
         if 's' in self.input.keys and self.last_keys == () and (self.state == STATE_START):
-            self.state = STATE_ACTIVE
+            self.state = STATE_BEGIN
 
         # Pausing midgame
         elif 's' in self.input.keys and self.last_keys == () and self.state == STATE_ACTIVE:
+            self.pausesound.play()
             self.state = STATE_PAUSED
         # Resuming a game
         elif 's' in self.input.keys and self.last_keys == () and self.state == STATE_PAUSED:
+            self.pausesound.play()
             self.state = STATE_ACTIVE

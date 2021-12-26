@@ -19,9 +19,13 @@ STATE_START = 0
 STATE_PAUSED = 2
 STATE_ACTIVE = 1
 STATE_END = 3
+STATE_FINISH = 4
+STATE_BEGIN = -1
 # STATE_FINISH = 3
 
 LEFT = 0
 UP = 1
 RIGHT = 2
 DOWN = 3
+
+SOUNDS = ['lose.wav', 'crunch.wav', 'level.wav', 'pause.wav', 'start.flac']
