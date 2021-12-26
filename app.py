@@ -77,11 +77,11 @@ class PySnake(GameApp):
                                    x=GAME_WIDTH/2,
                                    y=5*GAME_HEIGHT//8,
                                    linecolor="yellow")
-            self.aidtext = GLabel(text="Press S to Resume",
+            self.aidtext = GLabel(text=f"Score: {len(self.snake.segments)}\nPress S to Resume",
                                   font_size=50,
                                   font_name='Arcade.ttf',
                                   x=GAME_WIDTH/2,
-                                  y=3*GAME_HEIGHT/2,
+                                  y=GAME_HEIGHT/3,
                                   linecolor="yellow")
 
         if self.state == STATE_ACTIVE and self.bodyCollision():
