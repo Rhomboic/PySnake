@@ -12,6 +12,7 @@ HOW TO PLAY:
 
 - pip install kivy
 - pip install introcs
+- You can also clone introcs at: https://github.com/WalkerWhite/introcs-python
 - Navigate to the directory that has the game folder (not into the game folder, just outside it)
 - Type 'python pysnake' (without the quotes) and hit ENTER
 
