@@ -172,16 +172,16 @@ class PySnake(GameApp):
 
     def handleInput(self):
 
-        if 'up' in self.input.keys and self.last_keys == ():
+        if 'up' in self.input.keys and self.last_keys == () and self.snake.segments[0].direction != DOWN:
             self.snake.segments[0].direction = UP
 
-        if 'down' in self.input.keys and self.last_keys == ():
+        if 'down' in self.input.keys and self.last_keys == () and self.snake.segments[0].direction != UP:
             self.snake.segments[0].direction = DOWN
 
-        if 'left' in self.input.keys and self.last_keys == ():
+        if 'left' in self.input.keys and self.last_keys == () and self.snake.segments[0].direction != RIGHT:
             self.snake.segments[0].direction = LEFT
 
-        if 'right' in self.input.keys and self.last_keys == ():
+        if 'right' in self.input.keys and self.last_keys == () and self.snake.segments[0].direction != LEFT:
             self.snake.segments[0].direction = RIGHT
 
     def eaten(self):
