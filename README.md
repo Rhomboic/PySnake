@@ -20,5 +20,5 @@ CONTROLS:
 - Up, Down, Left, Right - Direction
 - S - Menu Interaction
 
-The contents of the game2d folder were provided by the Cornell University CS1110 course Lecturer, Mr Walker White in the Fall of 2021.
+The contents of the game2d folder were provided by the Cornell University CS1110 course lecturer, Mr Walker White, in the Fall of 2021.
 Enjoy!!
