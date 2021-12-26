@@ -1,2 +1,2 @@
 # PySnake
-A Nokie Snake clone
+A Nokia Snake clone
