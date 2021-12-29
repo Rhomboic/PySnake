@@ -161,13 +161,13 @@ class PySnake(GameApp):
         if self.eaten():
             # if self.time < 0.2:
             self.eatsound.play()
+            for i in range(4):
+                last = self.snake.segments[-1]
+                x_pos = last.last_x
+                y_pos = last.last_y
 
-            last = self.snake.segments[-1]
-            x_pos = last.last_x
-            y_pos = last.last_y
-
-            self.snake.segments.append(Block(x=x_pos, y=y_pos,
-                                             width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='green'))
+                self.snake.segments.append(Block(x=x_pos, y=y_pos,
+                                                 width=SEGMENT_LENGTH, height=SEGMENT_LENGTH, fillcolor='green'))
 
     def handleInput(self):
 
