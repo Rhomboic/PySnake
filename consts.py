@@ -14,6 +14,7 @@ SEGMENT_LENGTH = 30
 SEGMENT_BORDER = 1
 
 BASE_SPEED = 0.1
+GROWTH_RATE = 4
 
 STATE_START = 0
 STATE_PAUSED = 2
@@ -34,5 +35,12 @@ try:
     speed = float(sys.argv[1])
     if speed >= 0.01 and speed <= 1:
         BASE_SPEED = speed
+except:
+    pass  # Use original value
+
+try:
+    rate = int(sys.argv[2])
+    if rate >= 1 and rate <= 20:
+        GROWTH_RATE = rate
 except:
     pass  # Use original value

@@ -44,7 +44,7 @@ class PySnake(GameApp):
         self.starttheme.play()
 
     def update(self, dt):
-
+        print(GROWTH_RATE)
         self.time += dt
 
         if self.state != STATE_START:
@@ -161,7 +161,7 @@ class PySnake(GameApp):
         if self.eaten():
             # if self.time < 0.2:
             self.eatsound.play()
-            for i in range(4):
+            for i in range(GROWTH_RATE):
                 last = self.snake.segments[-1]
                 x_pos = last.last_x
                 y_pos = last.last_y
