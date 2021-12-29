@@ -44,7 +44,7 @@ class PySnake(GameApp):
         self.starttheme.play()
 
     def update(self, dt):
-        print(GROWTH_RATE)
+
         self.time += dt
 
         if self.state != STATE_START:
